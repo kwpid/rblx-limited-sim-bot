@@ -3,7 +3,7 @@ const db = require('./databaseManager');
 
 class LimitedsImporter {
     constructor() {
-        this.baseUrl = 'https://www.rolimons.com/api/v1';
+        this.baseUrl = 'https://www.rolimons.com/api/v2';
         this.rarityThresholds = {
             common: { min: 0, max: 25000 },
             uncommon: { min: 25001, max: 74999 },
@@ -26,7 +26,10 @@ class LimitedsImporter {
 
     async fetchAllLimiteds() {
         try {
-            const response = await axios.get(`${this.baseUrl}/limiteds`);
+            const response = await axios.get(`${this.baseUrl}/items/limiteds`);
+            if (!response.data || !response.data.items) {
+                throw new Error('Invalid response format from Rolimons API');
+            }
             return response.data.items;
         } catch (error) {
             console.error('Error fetching limiteds from Rolimons:', error);
