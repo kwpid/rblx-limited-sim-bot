@@ -1,20 +1,16 @@
 {
-    "items": {
-        "dominus_empyreus": {
-            "name": "Dominus Empyreus",
-            "imageUrl": "https://tr.rbxcdn.com/1e6e0c0b0b0b0b0b0b0b0b0b0b0b0b0b/150/150/Image/Png",
-            "value": 1000000,
-            "rap": 950000,
-            "rarity": "legendary"
-        },
-        "sparkle_time_fedora": {
-            "name": "Sparkle Time Fedora",
-            "imageUrl": "https://tr.rbxcdn.com/2e6e0c0b0b0b0b0b0b0b0b0b0b0b0b0b/150/150/Image/Png",
-            "value": 50000,
-            "rap": 45000,
-            "rarity": "rare"
+    "items": [
+        {
+            "itemId": "catrin_dia_de_muertos_mask",
+            "name": "Catrin Dia de Muertos Mask",
+            "imageUrl": "https://tr.rbxcdn.com/180DAY-470a1c59b27290324e2097582a423d3c/420/420/Hat/Webp/noFilter",
+            "value": 167,
+            "rap": 145,
+            "rarity": "common",
+            "owners": [],
+            "baseValue": 167
         }
-    },
+    ],
     "cases": {
         "basic_case": {
             "name": "Basic Case",

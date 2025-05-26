@@ -1,45 +1,77 @@
 const { SlashCommandBuilder } = require('discord.js');
-const rolimonsApi = require('../utils/rolimonsApi');
 const db = require('../utils/databaseManager');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('additem')
-        .setDescription('Add a Roblox limited item to the database')
+        .setDescription('Add a new item to the database')
         .addStringOption(option =>
-            option.setName('query')
-                .setDescription('Item name or ID to search for')
-                .setRequired(true)),
+            option.setName('itemid')
+                .setDescription('The unique ID for the item')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('name')
+                .setDescription('The name of the item')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('imageurl')
+                .setDescription('The URL of the item image')
+                .setRequired(true))
+        .addIntegerOption(option =>
+            option.setName('value')
+                .setDescription('The value of the item')
+                .setRequired(true))
+        .addIntegerOption(option =>
+            option.setName('rap')
+                .setDescription('The RAP of the item')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('rarity')
+                .setDescription('The rarity of the item')
+                .setRequired(true)
+                .addChoices(
+                    { name: 'Common', value: 'common' },
+                    { name: 'Uncommon', value: 'uncommon' },
+                    { name: 'Rare', value: 'rare' },
+                    { name: 'Ultra Rare', value: 'ultraRare' },
+                    { name: 'Legendary', value: 'legendary' },
+                    { name: 'Mythic', value: 'mythic' },
+                    { name: 'Unobtainable', value: 'unobtainable' }
+                )),
 
     async execute(interaction) {
+        // Check if user has admin permissions
+        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+            return interaction.reply({
+                content: 'You need administrator permissions to use this command.',
+                ephemeral: true
+            });
+        }
+
         await interaction.deferReply();
 
         try {
-            const query = interaction.options.getString('query');
-            const items = await rolimonsApi.searchItems(query);
+            const itemData = {
+                itemId: interaction.options.getString('itemid'),
+                name: interaction.options.getString('name'),
+                imageUrl: interaction.options.getString('imageurl'),
+                value: interaction.options.getInteger('value'),
+                rap: interaction.options.getInteger('rap'),
+                rarity: interaction.options.getString('rarity')
+            };
 
-            if (!items || items.length === 0) {
-                return interaction.editReply('No items found matching your search.');
-            }
-
-            // If we found exactly one item, add it directly
-            if (items.length === 1) {
-                const item = items[0];
-                await db.addItem(item);
-                return interaction.editReply(`Added item: **${item.name}**\nValue: R$ ${item.value.toLocaleString()}\nRAP: R$ ${item.rap.toLocaleString()}`);
-            }
-
-            // If multiple items found, show a list
-            const itemList = items.slice(0, 10).map((item, index) => 
-                `${index + 1}. ${item.name} (Value: R$ ${item.value.toLocaleString()})`
-            ).join('\n');
-
-            await interaction.editReply(
-                `Multiple items found. Please use the item ID to add a specific item:\n\n${itemList}\n\nUse \`/additem <item_id>\` to add a specific item.`
-            );
+            const item = await db.addItem(itemData);
+            
+            await interaction.editReply({
+                content: `Successfully added item:\n**${item.name}**\nValue: R$ ${item.value.toLocaleString()}\nRAP: R$ ${item.rap.toLocaleString()}\nRarity: ${item.rarity}`,
+                ephemeral: true
+            });
         } catch (error) {
             console.error('Error adding item:', error);
-            await interaction.editReply('Failed to add item. Please try again later.');
+            await interaction.editReply({
+                content: 'Failed to add item. Please try again later.',
+                ephemeral: true
+            });
         }
     },
 }; 
