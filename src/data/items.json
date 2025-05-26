@@ -1,0 +1,37 @@
+{
+    "items": {
+        "dominus_empyreus": {
+            "name": "Dominus Empyreus",
+            "imageUrl": "https://tr.rbxcdn.com/1e6e0c0b0b0b0b0b0b0b0b0b0b0b0b0b/150/150/Image/Png",
+            "value": 1000000,
+            "rap": 950000,
+            "rarity": "legendary"
+        },
+        "sparkle_time_fedora": {
+            "name": "Sparkle Time Fedora",
+            "imageUrl": "https://tr.rbxcdn.com/2e6e0c0b0b0b0b0b0b0b0b0b0b0b0b0b/150/150/Image/Png",
+            "value": 50000,
+            "rap": 45000,
+            "rarity": "rare"
+        }
+    },
+    "cases": {
+        "basic_case": {
+            "name": "Basic Case",
+            "imageUrl": "https://tr.rbxcdn.com/basic_case_image.png",
+            "price": 1000,
+            "possibleItems": [
+                "sparkle_time_fedora"
+            ]
+        },
+        "premium_case": {
+            "name": "Premium Case",
+            "imageUrl": "https://tr.rbxcdn.com/premium_case_image.png",
+            "price": 5000,
+            "possibleItems": [
+                "dominus_empyreus",
+                "sparkle_time_fedora"
+            ]
+        }
+    }
+} 
