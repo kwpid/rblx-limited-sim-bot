@@ -15,18 +15,17 @@
         "basic_case": {
             "name": "Basic Case",
             "imageUrl": "https://tr.rbxcdn.com/basic_case_image.png",
-            "price": 1000,
+            "price": 0,
             "possibleItems": [
-                "sparkle_time_fedora"
+                "catrin_dia_de_muertos_mask"
             ]
         },
         "premium_case": {
             "name": "Premium Case",
             "imageUrl": "https://tr.rbxcdn.com/premium_case_image.png",
-            "price": 5000,
+            "price": 200,
             "possibleItems": [
-                "dominus_empyreus",
-                "sparkle_time_fedora"
+                "catrin_dia_de_muertos_mask"
             ]
         }
     }
